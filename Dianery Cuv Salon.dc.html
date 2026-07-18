@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="./images/team-1.jpeg">
+<meta name="ext-resource-dependency" content="./images/team-2.jpeg">
+<meta name="ext-resource-dependency" content="./images/team-3.jpeg">
+<meta name="ext-resource-dependency" content="./images/team-4.jpeg">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="./image-slot.js"></script>
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="56" fill="#0f6e73"/>
+      <text x="40" y="33" font-family="sans-serif" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">DC</text>
+    </svg>
+  </template>
+  <style>
+    body { margin: 0; font-family: 'Manrope', sans-serif; color: #142b30; -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; }
+    a { color: #0f6e73; text-decoration: none; transition: color 0.15s ease; }
+    a:hover { color: #0b545a; }
+    ::selection { background: #cfeae8; }
+    html { scroll-behavior: smooth; }
+    button, a, input, select, textarea { transition: all 0.15s ease; }
+    :focus-visible { outline: 2px solid #0f6e73; outline-offset: 2px; }
+    input::placeholder, textarea::placeholder { color: #9db0b3; }
+  </style>
+</helmet>
+
+<div style="background: #ffffff; overflow-x: hidden;">
+
+  <!-- HEADER / NAV -->
+  <header style="position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid #e3ebea; box-shadow: {{ headerShadow }};">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: auto; min-height: 0;">
+      <a href="#inicio" style="display: flex; align-items: center; gap: 10px; color: #142b30; flex-shrink: 0; white-space: nowrap;">
+        <span style="width: 38px; height: 38px; border-radius: 10px; background: #0f6e73; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; flex-shrink: 0;">FC</span>
+        <span style="font-weight: 800; font-size: 17px; letter-spacing: -0.01em; white-space: nowrap;">FISIOTERAPEUTAS CO.</span>
+      </a>
+
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #dde7e6; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #142b30; font-size: 18px;">
+          <i class="fas fa-bars"></i>
+        </button>
+      </sc-if>
+
+      <sc-if value="{{ isNotMobile }}" hint-placeholder-val="{{ true }}">
+        <nav style="display: flex; align-items: center; gap: 18px; flex-wrap: nowrap; min-width: 0;">
+          <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="6">
+            <a href="{{ link.href }}" style="font-size: 14px; font-weight: 600; color: {{ link.color }}; white-space: nowrap; padding-bottom: 3px; border-bottom: 2px solid {{ link.underline }};" style-hover="color: #0b545a;">{{ link.label }}</a>
+          </sc-for>
+        </nav>
+        <a href="#contacto" style="flex-shrink: 0; white-space: nowrap; padding: 11px 20px; background: #0f6e73; color: #fff; border-radius: 9px; font-weight: 700; font-size: 14px;" style-hover="background: #0b545a; box-shadow: 0 6px 16px -6px rgba(15,110,115,0.5);" style-active="transform: scale(0.97);">Agendar Cita</a>
+      </sc-if>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 200; background: #ffffff; display: flex; flex-direction: column; padding: 20px 24px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
+        <span style="font-weight: 800; font-size: 18px;">Dianery Cuv Salon</span>
+        <button onClick="{{ closeMenu }}" aria-label="Cerrar menú" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #dde7e6; background: #fff; font-size: 18px; cursor: pointer;">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+      <nav style="display: flex; flex-direction: column; gap: 4px;">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="6">
+          <a href="{{ link.href }}" onClick="{{ closeMenu }}" style="padding: 16px 4px; border-bottom: 1px solid #eef2f2; font-size: 18px; font-weight: 700; color: #142b30;">{{ link.label }}</a>
+        </sc-for>
+      </nav>
+      <a href="#contacto" onClick="{{ closeMenu }}" style="margin-top: 28px; text-align: center; padding: 15px 22px; background: #0f6e73; color: #fff; border-radius: 9px; font-weight: 700; font-size: 16px;">Agendar Cita</a>
+    </div>
+  </sc-if>
+
+  <!-- HERO -->
+  <section id="inicio" style="background: #f5faf9; padding: 72px 24px 88px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; gap: 56px; flex-wrap: wrap; align-items: center;">
+      <div style="flex: 1 1 460px; min-width: 0; width: 100%;">
+        <span style="display: inline-block; padding: 6px 14px; background: #eaf5f4; color: #0b545a; border-radius: 100px; font-size: 13px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 20px;">Fisioterapia &amp; Masaje Terapéutico</span>
+        <h1 style="font-size: clamp(34px, 4.6vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 20px; color: #10262b;">Recupera tu movimiento, vive sin dolor</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: #45595f; margin: 0 0 32px; max-width: 500px;">Tu bienestar es nuestra prioridad. Tratamientos personalizados de masaje terapéutico y fisioterapia, realizados por futuros fisioterapeutas dedicados y supervisados.</p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px;">
+          <a href="#servicios" style="padding: 15px 26px; background: #0f6e73; color: #fff; border-radius: 10px; font-weight: 700; font-size: 15.5px;" style-hover="background: #0b545a; box-shadow: 0 8px 20px -8px rgba(15,110,115,0.5); transform: translateY(-1px);" style-active="transform: translateY(0) scale(0.98);">Ver Servicios</a>
+          <a href="#contacto" style="padding: 15px 26px; background: #fff; color: #0f6e73; border: 1.5px solid #cfe3e2; border-radius: 10px; font-weight: 700; font-size: 15.5px;" style-hover="border-color: #0f6e73; background: #f5faf9;" style-active="transform: scale(0.98);">Agendar Cita</a>
+        </div>
+        <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+          <sc-for list="{{ trustPoints }}" as="tp" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; gap: 9px;">
+              <i class="fas {{ tp.icon }}" style="color: #0f6e73; font-size: 16px;"></i>
+              <span style="font-size: 14.5px; font-weight: 600; color: #34474c;">{{ tp.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex: 1 1 380px; min-width: 0; width: 100%; max-width: 440px;">
+        <div style="background: #fff; border-radius: 20px; border: 1px solid #e3ebea; box-shadow: 0 20px 50px -20px rgba(15,110,115,0.18); padding: 32px; transition: box-shadow 0.25s ease;" style-hover="box-shadow: 0 24px 60px -18px rgba(15,110,115,0.26);">
+          <h3 style="margin: 0 0 22px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #0b545a;">Cómo funciona</h3>
+          <sc-for list="{{ howItWorks }}" as="step" hint-placeholder-count="3">
+            <div style="display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid #f0f4f3;">
+              <div style="width: 34px; height: 34px; border-radius: 50%; background: #eaf5f4; color: #0b545a; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0;">{{ step.n }}</div>
+              <div>
+                <div style="font-weight: 700; font-size: 15.5px; color: #142b30; margin-bottom: 3px;">{{ step.title }}</div>
+                <div style="font-size: 14px; color: #5f7378; line-height: 1.5;">{{ step.desc }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" style="padding: 96px 24px; max-width: 1180px; margin: 0 auto;">
+    <div style="text-align: center; max-width: 620px; margin: 0 auto 52px;">
+      <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Nuestros Servicios</h2>
+      <p style="font-size: 17px; color: #5f7378; margin: 0;">Tratamientos personalizados para tu recuperación y bienestar</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px;">
+      <sc-for list="{{ services }}" as="svc" hint-placeholder-count="6">
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 26px; transition: box-shadow 0.2s, transform 0.2s;" style-hover="box-shadow: 0 16px 34px -18px rgba(15,110,115,0.25); transform: translateY(-3px);">
+          <div style="width: 48px; height: 48px; border-radius: 12px; background: #eaf5f4; color: #0f6e73; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px;">
+            <i class="fas {{ svc.icon }}"></i>
+          </div>
+          <h3 style="font-size: 18.5px; font-weight: 700; margin: 0 0 8px; color: #142b30;">{{ svc.title }}</h3>
+          <p style="font-size: 14.5px; color: #5f7378; line-height: 1.55; margin: 0 0 14px;">{{ svc.desc }}</p>
+          <a href="#contacto" style="font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;" style-hover="gap: 8px;">Agendar →</a>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" style="padding: 96px 24px; background: #f5faf9;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 620px; margin: 0 auto 52px;">
+        <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Nuestro Equipo</h2>
+        <p style="font-size: 17px; color: #5f7378; margin: 0;">Futuros fisioterapeutas comprometidos con tu salud, bajo supervisión clínica</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px;">
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 24px; text-align: center;">
+          <image-slot id="team-photo-1" src="./images/team-1.jpeg" shape="circle" style="width: 84px; height: 84px; margin: 0 auto 16px;" placeholder="Foto de Jazibi Montserrat Cuv"></image-slot>
+          <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px; color: #142b30;">Jazibi Montserrat Cuv</h3>
+          <p style="font-size: 13px; color: #0f6e73; font-weight: 700; margin: 0 0 10px;">Terapia Manual y Ejercicio Terapéutico</p>
+          <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 16px;">Combina técnicas de terapia manual con ejercicios personalizados para optimizar la recuperación musculoesquelética.</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 24px; text-align: center;">
+          <image-slot id="team-photo-2" src="./images/team-2.jpeg" shape="circle" style="width: 84px; height: 84px; margin: 0 auto 16px;" placeholder="Foto de Dianery Cuv Salon"></image-slot>
+          <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px; color: #142b30;">Dianery Cuv Salon</h3>
+          <p style="font-size: 13px; color: #0f6e73; font-weight: 700; margin: 0 0 10px;">Reeducación Postural y Ergonomía</p>
+          <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 16px;">Enfocada en la corrección postural y prevención de lesiones laborales mediante ejercicios de core y ergonomía.</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 24px; text-align: center;">
+          <image-slot id="team-photo-3" src="./images/team-3.jpeg" shape="circle" style="width: 84px; height: 84px; margin: 0 auto 16px;" placeholder="Foto de Alberto Dorantes"></image-slot>
+          <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px; color: #142b30;">Alberto Dorantes</h3>
+          <p style="font-size: 13px; color: #0f6e73; font-weight: 700; margin: 0 0 10px;">Neurología y Reeducación Motriz</p>
+          <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 16px;">Aplica técnicas de facilitación neuromuscular (PNF) y ejercicios de equilibrio para pacientes neurológicos.</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 24px; text-align: center;">
+          <image-slot id="team-photo-4" src="./images/team-4.jpeg" shape="circle" style="width: 84px; height: 84px; margin: 0 auto 16px;" placeholder="Foto de Hector Cocom"></image-slot>
+          <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px; color: #142b30;">Hector Cocom</h3>
+          <p style="font-size: 13px; color: #0f6e73; font-weight: 700; margin: 0 0 10px;">Lesiones Deportivas y Readaptación</p>
+          <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 16px;">Combina terapia manual, ejercicios funcionales y vendaje neuromuscular para un retorno seguro al deporte.</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" style="padding: 96px 24px; max-width: 1180px; margin: 0 auto;">
+    <div style="text-align: center; max-width: 620px; margin: 0 auto 52px;">
+      <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Testimonios</h2>
+      <p style="font-size: 17px; color: #5f7378; margin: 0;">Lo que dicen nuestros pacientes</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px;">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+        <div style="background: #f5faf9; border-radius: 16px; padding: 30px 26px;">
+          <div style="color: #e3a92b; font-size: 15px; margin-bottom: 14px; letter-spacing: 2px;">★★★★★</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #34474c; margin: 0 0 20px; font-style: italic;">"{{ t.quote }}"</p>
+          <div style="font-weight: 700; font-size: 14.5px; color: #142b30;">{{ t.name }}</div>
+          <div style="font-size: 13px; color: #0f6e73; font-weight: 600;">{{ t.condition }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" style="padding: 96px 24px; background: #f5faf9;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 620px; margin: 0 auto 52px;">
+        <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Blog de Salud y Bienestar</h2>
+        <p style="font-size: 17px; color: #5f7378; margin: 0;">Artículos útiles para mejorar tu calidad de vida</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; margin-bottom: 40px;">
+        <sc-for list="{{ blogPosts }}" as="post" hint-placeholder-count="3">
+          <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; overflow: hidden;">
+            <image-slot id="{{ post.imgId }}" style="width: 100%; height: 170px; display: block;" shape="rect" placeholder="{{ post.imgPlaceholder }}"></image-slot>
+            <div style="padding: 22px 22px 24px;">
+              <span style="display: inline-block; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #0f6e73; background: #eaf5f4; padding: 4px 10px; border-radius: 100px; margin-bottom: 12px;">{{ post.tag }}</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; line-height: 1.35; margin: 0 0 10px; color: #142b30;">{{ post.title }}</h3>
+              <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 14px;">{{ post.excerpt }}</p>
+              <a href="#" style="font-size: 13.5px; font-weight: 700;">Leer artículo →</a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="text-align: center;">
+        <a href="#" style="display: inline-block; padding: 14px 26px; background: #fff; border: 1.5px solid #cfe3e2; color: #0f6e73; border-radius: 10px; font-weight: 700; font-size: 15px;">Ver todos los artículos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding: 96px 24px; max-width: 800px; margin: 0 auto;">
+    <div style="text-align: center; margin: 0 auto 48px;">
+      <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Preguntas Frecuentes</h2>
+      <p style="font-size: 17px; color: #5f7378; margin: 0;">Respuestas a las dudas más comunes de nuestros pacientes</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="5">
+        <div style="border: 1px solid #e6edec; border-radius: 12px; overflow: hidden; background: #fff;">
+          <button onClick="{{ faq.onToggle }}" aria-expanded="{{ faq.isOpen }}" style="width: 100%; text-align: left; padding: 19px 22px; background: none; border: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 15.5px; font-weight: 700; color: #142b30;" style-hover="background: #f8fbfa;">
+            <span>{{ faq.q }}</span>
+            <i class="fas fa-chevron-down" style="color: #0f6e73; font-size: 14px; flex-shrink: 0; transition: transform 0.25s ease; transform: {{ faq.chevronTransform }};"></i>
+          </button>
+          <sc-if value="{{ faq.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 22px 20px; font-size: 14.5px; line-height: 1.6; color: #5f7378;">{{ faq.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- UBICACION -->
+  <section id="ubicacion" style="padding: 96px 24px; background: #f5faf9;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 620px; margin: 0 auto 48px;">
+        <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Nuestra Ubicación</h2>
+        <p style="font-size: 17px; color: #5f7378; margin: 0;">Visítanos en nuestro salón</p>
+      </div>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: stretch;">
+        <div style="flex: 1 1 460px; min-width: 0; width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid #e6edec;">
+          <iframe title="Mapa de ubicación" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.123456789012!2d-99.13320848466342!3d19.43260834711889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d2006d306e8a55%3A0xe4d9d8d6e4f4c3b7!2sCalle%20Falsa%20123%2C%20Colonia%20Esperanza%2C%20Ciudad%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1600000000000" width="100%" height="100%" style="border: 0; min-height: 340px; display: block;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div style="flex: 1 1 340px; min-width: 0; width: 100%; background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 28px;">
+          <address style="font-style: normal; font-size: 15px; line-height: 1.7; color: #34474c; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #f0f4f3;">
+            <strong style="color: #142b30;">Dianery Cuv Salon</strong><br>
+            Calle Falsa 123, Colonia Esperanza<br>
+            Ciudad de México, CP 01000
+          </address>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <sc-for list="{{ locationInfo }}" as="info" hint-placeholder-count="4">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <div style="width: 36px; height: 36px; border-radius: 9px; background: #eaf5f4; color: #0f6e73; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">
+                  <i class="fas {{ info.icon }}"></i>
+                </div>
+                <div>
+                  <div style="font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #8a9ba0; margin-bottom: 2px;">{{ info.label }}</div>
+                  <div style="font-size: 14.5px; color: #34474c; line-height: 1.5;">{{ info.value }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="padding: 96px 24px; max-width: 640px; margin: 0 auto;">
+    <div style="text-align: center; margin: 0 auto 40px;">
+      <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Contacto</h2>
+      <p style="font-size: 17px; color: #5f7378; margin: 0;">¿Tienes preguntas o deseas agendar una cita? Contáctanos</p>
+    </div>
+
+    <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+      <div style="background: #eaf5f4; border: 1px solid #cfe3e2; border-radius: 14px; padding: 32px; text-align: center;">
+        <i class="fas fa-circle-check" style="font-size: 30px; color: #0f6e73; margin-bottom: 12px;"></i>
+        <h3 style="margin: 0 0 6px; font-size: 18px; color: #142b30;">¡Solicitud enviada!</h3>
+        <p style="margin: 0; font-size: 14.5px; color: #45595f;">Nos pondremos en contacto contigo muy pronto para confirmar tu cita.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ handleContactSubmit }}" style="display: flex; flex-direction: column; gap: 16px;">
+        <input type="text" placeholder="Tu nombre" required="" style="padding: 14px 16px; border: 1.5px solid #dde7e6; border-radius: 10px; font-size: 15px; font-family: inherit;" style-hover="border-color: #b7d3d1;" style-focus="border-color: #0f6e73; box-shadow: 0 0 0 3px #eaf5f4;">
+        <input type="email" placeholder="Tu correo" required="" style="padding: 14px 16px; border: 1.5px solid #dde7e6; border-radius: 10px; font-size: 15px; font-family: inherit;" style-hover="border-color: #b7d3d1;" style-focus="border-color: #0f6e73; box-shadow: 0 0 0 3px #eaf5f4;">
+        <input type="tel" placeholder="Tu teléfono (opcional)" style="padding: 14px 16px; border: 1.5px solid #dde7e6; border-radius: 10px; font-size: 15px; font-family: inherit;" style-hover="border-color: #b7d3d1;" style-focus="border-color: #0f6e73; box-shadow: 0 0 0 3px #eaf5f4;">
+        <select required="" style="padding: 14px 16px; border: 1.5px solid #dde7e6; border-radius: 10px; font-size: 15px; font-family: inherit; color: #34474c; background: #fff;" style-hover="border-color: #b7d3d1;" style-focus="border-color: #0f6e73; box-shadow: 0 0 0 3px #eaf5f4;">
+          <option value="">Selecciona un servicio</option>
+          <sc-for list="{{ services }}" as="svc" hint-placeholder-count="6">
+            <option value="{{ svc.title }}">{{ svc.title }}</option>
+          </sc-for>
+        </select>
+        <textarea placeholder="Tu mensaje o detalle de tu condición" rows="4" required="" style="padding: 14px 16px; border: 1.5px solid #dde7e6; border-radius: 10px; font-size: 15px; font-family: inherit; resize: vertical;" style-hover="border-color: #b7d3d1;" style-focus="border-color: #0f6e73; box-shadow: 0 0 0 3px #eaf5f4;"></textarea>
+        <button type="submit" style="padding: 15px 22px; background: #0f6e73; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 15.5px; cursor: pointer;" style-hover="background: #0b545a; box-shadow: 0 8px 20px -8px rgba(15,110,115,0.5);" style-active="transform: scale(0.98);">Enviar Solicitud</button>
+      </form>
+    </sc-if>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section style="padding: 64px 24px; background: #0f6e73;">
+    <div style="max-width: 640px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 26px; font-weight: 800; color: #fff; margin: 0 0 10px;">Boletín Informativo</h2>
+      <p style="font-size: 15.5px; color: #cdeae8; margin: 0 0 26px;">Suscríbete para recibir consejos de bienestar, promociones y novedades.</p>
+      <sc-if value="{{ newsletterSent }}" hint-placeholder-val="{{ false }}">
+        <div style="color: #fff; font-weight: 700; font-size: 15px;"><i class="fas fa-circle-check" style="margin-right: 8px;"></i>¡Gracias por suscribirte!</div>
+      </sc-if>
+      <sc-if value="{{ newsletterFormVisible }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ handleNewsletterSubmit }}" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+          <input type="email" placeholder="Tu correo electrónico" required="" style="flex: 1 1 260px; padding: 14px 16px; border: 1.5px solid transparent; border-radius: 10px; font-size: 15px; font-family: inherit;" style-focus="border-color: #10262b; box-shadow: 0 0 0 3px rgba(16,38,43,0.15);">
+          <button type="submit" style="padding: 14px 24px; background: #10262b; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; flex-shrink: 0;" style-hover="background: #071619;" style-active="transform: scale(0.97);">Suscribirse</button>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #10262b; padding: 64px 24px 28px;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 44px;">
+        <div>
+          <div style="font-weight: 800; font-size: 18px; color: #fff; margin-bottom: 14px;">FISIOTERAPEUTAS CO.</div>
+          <p style="font-size: 14px; color: #93a8ac; line-height: 1.6;">Servicios profesionales de masaje y fisioterapia realizados por futuros fisioterapeutas comprometidos con tu bienestar.</p>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 16px;">Enlaces rápidos</div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="6">
+              <a href="{{ link.href }}" style="font-size: 14px; color: #93a8ac;">{{ link.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 16px;">Contacto directo</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #93a8ac;">
+            <span><i class="fas fa-phone" style="width: 18px; color: rgb(110, 205, 199);"></i> +52 987-103-3895</span>
+            <span><i class="fas fa-envelope" style="width: 18px; color: #6ecdc7;"></i> info@dianerycuvsalon.com</span>
+            <span><i class="fas fa-location-dot" style="width: 18px; color: #6ecdc7;"></i> Calle Falsa 123, Col. Esperanza, CDMX</span>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 18px;">
+            <a href="#" aria-label="Facebook" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px;"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px;"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 13px; color: #6f8489;">
+        <span>© {{ year }} Dianery Cuv Salon. Todos los derechos reservados.</span>
+        <span>Hecho por futuros fisioterapeutas</span>
+      </div>
+    </div>
+  </footer>
+
+  <button onClick="{{ scrollToTop }}" aria-label="Ir arriba" title="Ir arriba" style="position: fixed; bottom: 28px; right: 28px; width: 48px; height: 48px; border-radius: 50%; background: #0f6e73; color: #fff; border: none; box-shadow: 0 8px 20px -6px rgba(15,110,115,0.5); font-size: 16px; cursor: pointer; z-index: 90; transition: opacity 0.25s ease, transform 0.25s ease; opacity: {{ topBtnOpacity }}; transform: {{ topBtnTransform }}; pointer-events: {{ topBtnPointer }};" style-hover="background: #0b545a; transform: translateY(-3px) scale(1.05);">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isMobile: (typeof window !== 'undefined' && window.innerWidth < 1100),
+    menuOpen: false,
+    faqOpen: 0,
+    contactSent: false,
+    newsletterSent: false,
+    showTop: false,
+    scrolled: false,
+    activeSection: 'inicio',
+  };
+
+  navLinks = [
+    { href: '#inicio', label: 'Inicio' },
+    { href: '#servicios', label: 'Servicios' },
+    { href: '#equipo', label: 'Equipo' },
+    { href: '#testimonios', label: 'Testimonios' },
+    { href: '#blog', label: 'Blog' },
+    { href: '#faq', label: 'FAQ' },
+    { href: '#ubicacion', label: 'Ubicación' },
+    { href: '#contacto', label: 'Contacto' },
+  ];
+
+  trustPoints = [
+    { icon: 'fa-user-doctor', label: 'Supervisión clínica' },
+    { icon: 'fa-list-check', label: 'Planes personalizados' },
+    { icon: 'fa-heart-pulse', label: 'Seguimiento continuo' },
+  ];
+
+  howItWorks = [
+    { n: 1, title: 'Evaluación inicial', desc: 'Analizamos tu condición y objetivos de tratamiento.' },
+    { n: 2, title: 'Plan personalizado', desc: 'Diseñamos sesiones adaptadas a tus necesidades.' },
+    { n: 3, title: 'Seguimiento', desc: 'Medimos tu progreso y ajustamos el tratamiento.' },
+  ];
+
+  services = [
+    { icon: 'fa-hand-holding-medical', title: 'Masaje Terapéutico', desc: 'Alivia tensiones musculares y mejora la circulación.' },
+    { icon: 'fa-hands', title: 'Masaje Descontracturante', desc: 'Ideal para contracturas y dolor muscular localizado.' },
+    { icon: 'fa-spa', title: 'Masaje Relajante', desc: 'Reduce el estrés y promueve el bienestar general.' },
+    { icon: 'fa-shield-heart', title: 'Fisioterapia Preventiva', desc: 'Prevención de lesiones y mejora de la movilidad.' },
+    { icon: 'fa-person-running', title: 'Rehabilitación Deportiva', desc: 'Recuperación específica para atletas y personas activas.' },
+    { icon: 'fa-child', title: 'Fisioterapia Pediátrica', desc: 'Tratamiento especializado para bebés y niños.' },
+  ];
+
+  team = [
+    { initials: 'JC', name: 'Jazibi Montserrat Cuv', role: 'Terapia Manual y Ejercicio Terapéutico', bio: 'Combina técnicas de terapia manual con ejercicios personalizados para optimizar la recuperación musculoesquelética.', photo: './images/team-1.jpeg', photoId: 'team-photo-1' },
+    { initials: 'DC', name: 'Dianery Cuv Salon', role: 'Reeducación Postural y Ergonomía', bio: 'Enfocada en la corrección postural y prevención de lesiones laborales mediante ejercicios de core y ergonomía.', photo: './images/team-2.jpeg', photoId: 'team-photo-2' },
+    { initials: 'AD', name: 'Alberto Dorantes', role: 'Neurología y Reeducación Motriz', bio: 'Aplica técnicas de facilitación neuromuscular (PNF) y ejercicios de equilibrio para pacientes neurológicos.', photo: './images/team-3.jpeg', photoId: 'team-photo-3' },
+    { initials: 'HC', name: 'Hector Cocom', role: 'Lesiones Deportivas y Readaptación', bio: 'Combina terapia manual, ejercicios funcionales y vendaje neuromuscular para un retorno seguro al deporte.', photo: './images/team-4.jpeg', photoId: 'team-photo-4' },
+  ];
+
+  testimonials = [
+    { name: 'María López', condition: 'Dolor lumbar crónico', quote: 'Después de pocas sesiones de masaje descontracturante, mi dolor de espalda baja disminuyó notablemente. El equipo es muy profesional y atento.' },
+    { name: 'Carlos Méndez', condition: 'Prevención de lesiones deportivas', quote: 'Gracias a la fisioterapia preventiva, pude volver a correr sin molestias. Los ejercicios personalizados hicieron la diferencia.' },
+    { name: 'Ana Rodríguez', condition: 'Tortícolis infantil', quote: 'Mi bebé tenía tortícolis congénita y tras unas semanas de terapia pediátrica mejoró mucho su movilidad cervical. Muy recomendado.' },
+  ];
+
+  blogPosts = [
+    { imgId: 'blog-postura', imgPlaceholder: 'Foto: postura correcta', tag: 'Postura', title: '5 errores de postura que dañan tu espalda', excerpt: 'Descubre los hábitos diarios que afectan tu columna y ejercicios sencillos para corregirlos.' },
+    { imgId: 'blog-cuello', imgPlaceholder: 'Foto: estiramientos de cuello', tag: 'Ejercicios', title: 'Rutina de estiramientos para el dolor de cuello', excerpt: 'Estiramientos suaves para hacer en casa y reducir la tensión cervical.' },
+    { imgId: 'blog-lesiones', imgPlaceholder: 'Foto: prevención de lesiones', tag: 'Deporte', title: 'Cómo prevenir lesiones comunes en corredores', excerpt: 'Consejos de calentamiento, fortalecimiento y técnica para correr sin lesiones.' },
+  ];
+
+  faqsData = [
+    { q: '¿Cuántas sesiones necesitaré para ver resultados?', a: 'La cantidad de sesiones varía según la condición individual, su severidad y tus objetivos. Tras una evaluación inicial, te daremos un plan personalizado con una estimación de sesiones.' },
+    { q: '¿Aceptan seguros médicos?', a: 'Trabajamos de forma particular, pero te proporcionamos los comprobantes necesarios para que solicites reembolso a tu aseguradora.' },
+    { q: '¿Ofrecen sesiones a domicilio?', a: 'Sí, dentro de ciertas zonas de la ciudad. Consulta disponibilidad y tarifas al agendar tu cita.' },
+    { q: '¿Necesito una referencia médica para iniciar tratamiento?', a: 'No es obligatorio. Si tienes un diagnóstico médico específico, nos ayuda a personalizar mejor tu plan.' },
+    { q: '¿Qué debo llevar a mi primera cita?', a: 'Ropa cómoda que permita movimiento libre. Si tienes estudios médicos recientes, tráelos para que los revisemos.' },
+  ];
+
+  locationInfo = [
+    { icon: 'fa-clock', label: 'Horarios', value: 'Lun–Vie: 8:00–20:00 · Sáb: 9:00–14:00' },
+    { icon: 'fa-phone', label: 'Teléfono', value: '+52 55 1234 5678' },
+    { icon: 'fa-envelope', label: 'Correo', value: 'info@dianerycuvsalon.com' },
+    { icon: 'fa-mobile-screen', label: 'WhatsApp', value: '+52 55 1234 5678' },
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 1100 });
+    this._onScroll = () => this.setState({ showTop: window.scrollY > 500, scrolled: window.scrollY > 10 });
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll);
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) this.setState({ activeSection: e.target.id }); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    this.navLinks.forEach(l => {
+      const el = document.getElementById(l.href.slice(1));
+      if (el) this._observer.observe(el);
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._observer) this._observer.disconnect();
+  }
+
+  toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  closeMenu = () => this.setState({ menuOpen: false });
+  toggleFaq = (i) => this.setState(s => ({ faqOpen: s.faqOpen === i ? -1 : i }));
+  handleContactSubmit = (e) => { e.preventDefault(); this.setState({ contactSent: true }); };
+  handleNewsletterSubmit = (e) => { e.preventDefault(); this.setState({ newsletterSent: true }); };
+  scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  renderVals() {
+    return {
+      isMobile: this.state.isMobile,
+      isNotMobile: !this.state.isMobile,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      navLinks: this.navLinks.map(l => ({
+        ...l,
+        color: l.href.slice(1) === this.state.activeSection ? '#0b545a' : '#445a60',
+        underline: l.href.slice(1) === this.state.activeSection ? '#0f6e73' : 'transparent',
+      })),
+      trustPoints: this.trustPoints,
+      howItWorks: this.howItWorks,
+      services: this.services,
+      team: this.team,
+      testimonials: this.testimonials,
+      blogPosts: this.blogPosts,
+      faqs: this.faqsData.map((f, i) => ({
+        ...f,
+        isOpen: i === this.state.faqOpen,
+        onToggle: () => this.toggleFaq(i),
+        chevronTransform: i === this.state.faqOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+      })),
+      locationInfo: this.locationInfo,
+      contactSent: this.state.contactSent,
+      contactFormVisible: !this.state.contactSent,
+      handleContactSubmit: this.handleContactSubmit,
+      newsletterSent: this.state.newsletterSent,
+      newsletterFormVisible: !this.state.newsletterSent,
+      handleNewsletterSubmit: this.handleNewsletterSubmit,
+      showTop: this.state.showTop,
+      topBtnOpacity: this.state.showTop ? 1 : 0,
+      topBtnTransform: this.state.showTop ? 'translateY(0)' : 'translateY(12px)',
+      topBtnPointer: this.state.showTop ? 'auto' : 'none',
+      scrollToTop: this.scrollToTop,
+      headerShadow: this.state.scrolled ? '0 4px 16px -8px rgba(15,110,115,0.15)' : 'none',
+      year: new Date().getFullYear(),
+    };
+  }
+}
+</script>
+</body>
+</html>
