@@ -7,6 +7,13 @@
 <meta name="ext-resource-dependency" content="./images/team-2.jpeg">
 <meta name="ext-resource-dependency" content="./images/team-3.jpeg">
 <meta name="ext-resource-dependency" content="./images/team-4.jpeg">
+<meta name="ext-resource-dependency" content="./images/team-5.jpeg">
+<meta name="ext-resource-dependency" content="./images/gallery-mesa-1.jpeg">
+<meta name="ext-resource-dependency" content="./images/gallery-mesa-2.jpeg">
+<meta name="ext-resource-dependency" content="./images/gallery-mesa-3.jpeg">
+<meta name="ext-resource-dependency" content="./images/gallery-mesa-4.jpeg">
+<meta name="ext-resource-dependency" content="./videos/mesa-1.mp4">
+<meta name="ext-resource-dependency" content="./videos/mesa-2.mp4">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -190,6 +197,45 @@
             <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
+        <div style="background: #fff; border: 1px solid #e6edec; border-radius: 16px; padding: 30px 24px; text-align: center;">
+          <image-slot id="team-photo-5" src="./images/team-5.jpeg" shape="circle" style="width: 84px; height: 84px; margin: 0 auto 16px;" placeholder="Foto de Israel"></image-slot>
+          <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 4px; color: #142b30;">Israel</h3>
+          <p style="font-size: 13px; color: #0f6e73; font-weight: 700; margin: 0 0 10px;">Terapia y Masaje Corporal</p>
+          <p style="font-size: 13.5px; color: #5f7378; line-height: 1.55; margin: 0 0 16px;">Brinda sesiones de masaje y terapia corporal con un trato cálido y atento, cuidando cada detalle de la experiencia del paciente.</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; background: #eaf5f4; display: flex; align-items: center; justify-content: center; color: #0f6e73; font-size: 13px;"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" style="padding: 96px 24px; max-width: 1180px; margin: 0 auto;">
+    <div style="text-align: center; max-width: 620px; margin: 0 auto 52px;">
+      <h2 style="font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: #10262b;">Galería</h2>
+      <p style="font-size: 17px; color: #5f7378; margin: 0;">Así preparamos nuestra mesa de servicio para cada sesión</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px;">
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec;">
+        <image-slot id="gallery-mesa-1" src="./images/gallery-mesa-1.jpeg" shape="rect" style="width: 100%; height: 260px; display: block; object-fit: cover;" placeholder="Mesa de servicio con toallas en forma de cisne"></image-slot>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec;">
+        <image-slot id="gallery-mesa-2" src="./images/gallery-mesa-2.jpeg" shape="rect" style="width: 100%; height: 260px; display: block; object-fit: cover;" placeholder="Detalle de toallas en forma de cisne"></image-slot>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec;">
+        <image-slot id="gallery-mesa-3" src="./images/gallery-mesa-3.jpeg" shape="rect" style="width: 100%; height: 260px; display: block; object-fit: cover;" placeholder="Toalla en forma de cisne con vino y velas"></image-slot>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec;">
+        <image-slot id="gallery-mesa-4" src="./images/gallery-mesa-4.jpeg" shape="rect" style="width: 100%; height: 260px; display: block; object-fit: cover;" placeholder="Mesa de servicio con vino, fresas y velas"></image-slot>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec; background: #10262b;">
+        <video src="./videos/mesa-1.mp4" controls="" preload="metadata" style="width: 100%; height: 260px; display: block; object-fit: cover; background: #10262b;"></video>
+      </div>
+      <div style="border-radius: 16px; overflow: hidden; border: 1px solid #e6edec; background: #10262b;">
+        <video src="./videos/mesa-2.mp4" controls="" preload="metadata" style="width: 100%; height: 260px; display: block; object-fit: cover; background: #10262b;"></video>
       </div>
     </div>
   </section>
@@ -405,6 +451,7 @@ class Component extends DCLogic {
     { href: '#inicio', label: 'Inicio' },
     { href: '#servicios', label: 'Servicios' },
     { href: '#equipo', label: 'Equipo' },
+    { href: '#galeria', label: 'Galería' },
     { href: '#testimonios', label: 'Testimonios' },
     { href: '#blog', label: 'Blog' },
     { href: '#faq', label: 'FAQ' },
@@ -438,6 +485,7 @@ class Component extends DCLogic {
     { initials: 'DC', name: 'Dianery Cuv Salon', role: 'Reeducación Postural y Ergonomía', bio: 'Enfocada en la corrección postural y prevención de lesiones laborales mediante ejercicios de core y ergonomía.', photo: './images/team-2.jpeg', photoId: 'team-photo-2' },
     { initials: 'AD', name: 'Alberto Dorantes', role: 'Neurología y Reeducación Motriz', bio: 'Aplica técnicas de facilitación neuromuscular (PNF) y ejercicios de equilibrio para pacientes neurológicos.', photo: './images/team-3.jpeg', photoId: 'team-photo-3' },
     { initials: 'HC', name: 'Hector Cocom', role: 'Lesiones Deportivas y Readaptación', bio: 'Combina terapia manual, ejercicios funcionales y vendaje neuromuscular para un retorno seguro al deporte.', photo: './images/team-4.jpeg', photoId: 'team-photo-4' },
+    { initials: 'IS', name: 'Israel', role: 'Terapia y Masaje Corporal', bio: 'Brinda sesiones de masaje y terapia corporal con un trato cálido y atento, cuidando cada detalle de la experiencia del paciente.', photo: './images/team-5.jpeg', photoId: 'team-photo-5' },
   ];
 
   testimonials = [
