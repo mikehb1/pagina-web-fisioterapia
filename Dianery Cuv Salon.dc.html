@@ -9,6 +9,7 @@
 <meta name="ext-resource-dependency" content="./images/team-4.jpeg">
 <meta name="ext-resource-dependency" content="./images/team-5.jpeg">
 <meta name="ext-resource-dependency" content="./images/team-6.jpeg">
+<meta name="ext-resource-dependency" content="./images/team-group.jpeg">
 <meta name="ext-resource-dependency" content="./images/gallery-mesa-1.jpeg">
 <meta name="ext-resource-dependency" content="./images/gallery-mesa-2.jpeg">
 <meta name="ext-resource-dependency" content="./images/gallery-mesa-3.jpeg">
@@ -109,7 +110,7 @@
         </div>
       </div>
 
-      <div style="flex: 1 1 380px; min-width: 0; width: 100%; max-width: 440px;">
+      <div style="flex: 1 1 380px; min-width: 0; width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 24px;">
         <div style="background: #fff; border-radius: 20px; border: 1px solid #e3ebea; box-shadow: 0 20px 50px -20px rgba(15,110,115,0.18); padding: 32px; transition: box-shadow 0.25s ease;" style-hover="box-shadow: 0 24px 60px -18px rgba(15,110,115,0.26);">
           <h3 style="margin: 0 0 22px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #0b545a;">Cómo funciona</h3>
           <sc-for list="{{ howItWorks }}" as="step" hint-placeholder-count="3">
@@ -121,6 +122,12 @@
               </div>
             </div>
           </sc-for>
+        </div>
+        <div style="border-radius: 20px; overflow: hidden; border: 1px solid #e3ebea; box-shadow: 0 20px 50px -20px rgba(15,110,115,0.18); position: relative;">
+          <image-slot id="hero-team-photo" src="./images/team-group.jpeg" shape="rect" style="width: 100%; height: 220px; display: block; object-fit: cover;" placeholder="Foto de nuestro equipo"></image-slot>
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 18px; background: linear-gradient(to top, rgba(16,38,43,0.75), rgba(16,38,43,0));">
+            <span style="color: #fff; font-weight: 700; font-size: 13.5px;">Nuestro equipo</span>
+          </div>
         </div>
       </div>
     </div>
@@ -540,8 +547,16 @@ class Component extends DCLogic {
       const el = document.getElementById(l.href.slice(1));
       if (el) this._observer.observe(el);
     });
+    this._lockVideoVolume = (e) => { e.target.muted = true; e.target.volume = 0; };
+    this._galleryVideos = Array.from(document.querySelectorAll('#galeria video'));
+    this._galleryVideos.forEach(v => {
+      v.muted = true;
+      v.volume = 0;
+      v.addEventListener('volumechange', this._lockVideoVolume);
+    });
   }
   componentWillUnmount() {
+    if (this._galleryVideos) this._galleryVideos.forEach(v => v.removeEventListener('volumechange', this._lockVideoVolume));
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll);
     if (this._observer) this._observer.disconnect();
